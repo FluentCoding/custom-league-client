@@ -51,15 +51,15 @@ public abstract class AbstractLedgeEndpoint extends UndocumentedEndpoint {
     }
 
     public Request.Builder jsonRequest(HttpUrl url) {
-        return internaljsonRequest(new Request.Builder()
+        return internalJsonRequest(new Request.Builder()
                 .url(url));
     }
     public Request.Builder jsonRequest(String uri) {
-        return internaljsonRequest(new Request.Builder()
+        return internalJsonRequest(new Request.Builder()
                 .url(uri));
     }
 
-    private Request.Builder internaljsonRequest(Request.Builder builder) {
+    private Request.Builder internalJsonRequest(Request.Builder builder) {
         return builder
                 .addHeader("Authorization", auth())
                 .addHeader("User-Agent", agent())
