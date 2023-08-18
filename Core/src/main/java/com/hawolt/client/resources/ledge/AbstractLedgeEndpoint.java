@@ -8,6 +8,8 @@ import com.hawolt.version.IVersionSupplier;
 import com.hawolt.virtual.leagueclient.authentication.Session;
 import com.hawolt.virtual.leagueclient.client.Authentication;
 import com.hawolt.virtual.leagueclient.userinfo.UserInformation;
+import okhttp3.HttpUrl;
+import okhttp3.Request;
 
 /**
  * Created: 19/01/2023 16:44
@@ -46,5 +48,21 @@ public abstract class AbstractLedgeEndpoint extends UndocumentedEndpoint {
                 leagueVersionSupplier.getVersionValue(platform, "LeagueClientUxRender.exe"),
                 rcp()
         );
+    }
+
+    public Request.Builder jsonRequest(HttpUrl url) {
+        return internaljsonRequest(new Request.Builder()
+                .url(url));
+    }
+    public Request.Builder jsonRequest(String uri) {
+        return internaljsonRequest(new Request.Builder()
+                .url(uri));
+    }
+
+    private Request.Builder internaljsonRequest(Request.Builder builder) {
+        return builder
+                .addHeader("Authorization", auth())
+                .addHeader("User-Agent", agent())
+                .addHeader("Accept", "application/json");
     }
 }
